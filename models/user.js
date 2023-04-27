@@ -6,6 +6,9 @@ const UserSchema = mongoose.Schema({
         require:true,
         type: String
     },
+    img:{
+        type: String,
+    },
     email: {
         require:true,
         type: String
@@ -14,10 +17,14 @@ const UserSchema = mongoose.Schema({
         require:true,
         type: String
     },
-    admin: {
+    role: {
         require:true,
         type: Boolean,
         default: false
+    },
+    token: {
+        type: String,
+
     }
     
 });

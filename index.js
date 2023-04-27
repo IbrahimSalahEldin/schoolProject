@@ -11,14 +11,13 @@ const cors = require("cors");
 app.use(express.json());
 
 
+
 app.use(cors());
 
 // start routes
 
 
 const userRoutes = require('./routes/userRoutes');
-
- 
 app.use('/api', userRoutes );
 
 

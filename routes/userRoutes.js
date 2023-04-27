@@ -11,7 +11,7 @@ const {register, login} = require("../controllers/users/userController");
 
 
 
-router.post("/register", registerValidations, register);
+// router.post("/register", registerValidations, register);
 
   
 router.post('/login',loginValidations, login);
