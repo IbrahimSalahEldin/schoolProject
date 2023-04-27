@@ -18,7 +18,17 @@ app.use(cors());
 
 
 const userRoutes = require('./routes/userRoutes');
-app.use('/api', userRoutes );
+app.use('/user', userRoutes );
+
+
+
+const studentRoutes = require('./routes/students');
+app.use('/student', studentRoutes );
+
+
+
+const absenceRoutes = require('./routes/absence');
+app.use('/absence', absenceRoutes );
 
 
 

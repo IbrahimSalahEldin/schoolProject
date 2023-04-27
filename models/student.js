@@ -36,9 +36,6 @@ const StudentSchema = mongoose.Schema({
     },
     Absence : [{type: mongoose.Schema.Types.ObjectId, ref: "Absence" }],
 
-
-
-   
 });
 
 const StudentModel = mongoose.model("student", StudentSchema);
