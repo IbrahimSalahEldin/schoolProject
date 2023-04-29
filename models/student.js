@@ -25,11 +25,12 @@ const StudentSchema = mongoose.Schema({
     },
     class:{
         enum: ['first', 'second', 'third'],
-        require:true
+        default:['fisrt'] 
     },
     academic_year :{
         enum: ['first', 'second', 'third'],
-        require:true
+        default:['fisrt'] 
+
     },
     father_description:{
         type: String,
