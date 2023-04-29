@@ -1,4 +1,4 @@
-const {validationResult} = require("express-validator")
+const {validationResult} = require("express-validator");
 const {hashedPassword , createToken ,comparaPassword} = require("../../services/authServices");
 const UserModel = require('../../models/user');
 const { decode } = require("jsonwebtoken");

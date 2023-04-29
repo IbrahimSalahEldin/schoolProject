@@ -36,7 +36,7 @@ const StudentSchema = mongoose.Schema({
     },
     Absence : [{type: mongoose.Schema.Types.ObjectId, ref: "Absence" }],
 
-});
+},{timestamp:true});
 
 const StudentModel = mongoose.model("student", StudentSchema);
 module.exports = StudentModel;
