@@ -15,7 +15,8 @@ const StudentSchema = mongoose.Schema({
     },
     ssn:{
         type: String,
-        require:true
+        require:true,
+        unique: true
     },
     amountaOfBsence:{
         type: Number

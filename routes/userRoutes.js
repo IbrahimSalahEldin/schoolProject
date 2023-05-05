@@ -1,18 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-//validation ;;
+//validation ;
 const { loginValidations} = require("../validations/userValidation");
 const { teacherValidation} = require("../validations/teacherValidation");
+const { authAdmin , authTeacher } = require('../middlewares/auth');
 const admin=require("../controllers/users/adminController");
-// controller;;
+// controller;
 const { login} = require("../controllers/users/userController");
-router.post('/create_teacher',[teacherValidation],admin.createTeacher);
-router.post('/create_student',admin.createStudent);
-router.get('/get_teacher',admin.getTeacher);
-router.get('/get_student',admin.getStudent);
+
+router.post('/',[ authAdmin ,   teacherValidation , upload('userProfil').single('photo')],admin.create);
+
+router.put('/:id',[ authAdmin ,   teacherValidation , upload('userProfil').single('photo')], admin.Edit);
+
+router.delete('/:id', authAdmin , admin.delete);
+
+router.get('/get' ,authTeacher, admin.get);
+
 router.post('/login',loginValidations, login);
 
-
-
 module.exports =  router;
+
