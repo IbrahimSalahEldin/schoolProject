@@ -4,8 +4,6 @@ const { validationResult } = require("express-validator");
 const userModule = require("../../models/user");
 
 class admin {
- 
-
   async create(req, res) {
     try {
       const objuser = {
