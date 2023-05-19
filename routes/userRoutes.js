@@ -9,6 +9,8 @@ const admin=require("../controllers/users/adminController");
 // controller;
 const { login} = require("../controllers/users/userController");
 
+const upload = require("../middlewares/upload");
+
 router.post('/',[ authAdmin ,   teacherValidation , upload('userProfil').single('photo')],admin.create);
 
 router.put('/:id',[ authAdmin ,   teacherValidation , upload('userProfil').single('photo')], admin.Edit);
