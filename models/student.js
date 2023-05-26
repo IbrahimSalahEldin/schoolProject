@@ -24,11 +24,19 @@ const StudentSchema = mongoose.Schema({
     report:{
         type: Number,
     },
+    absent:[{
+        type: Number,
+        enum:[0,1,2,3,4,5,6],
+        date: new Date(),
+        default: 0,
+    }],
     class:{
+        type: String,
         enum: ['first', 'second', 'third'],
         default:['fisrt'] 
     },
     academic_year :{
+        type:String,
         enum: ['first', 'second', 'third'],
         default:['fisrt'] 
 
@@ -36,7 +44,7 @@ const StudentSchema = mongoose.Schema({
     father_description:{
         type: String,
     },
-    Absence : [{type: mongoose.Schema.Types.ObjectId, ref: "Absence" }],
+    // Absence : [{type: mongoose.Schema.Types.ObjectId, ref: "Absence" }],
 
 },{timestamp:true});
 

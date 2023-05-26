@@ -18,6 +18,7 @@ class Student {
         amountaOfBsence: req.body.amountaOfBsence,
         report: req.body.report,
         class: req.body.class,
+        absent: req.body.absent,
         academic_year: req.body.academic_year,
         father_description: req.body.father_description,
       };
@@ -84,11 +85,18 @@ class Student {
     user.ssn = req.body.ssn;
     user.amountaOfBsence = req.body.amountaOfBsence;
     user.report = req.body.report;
+    user.absent = req.body.absent;
     user.class = req.body.class;
     user.academic_year = req.body.academic_year;
     user.father_description = req.body.father_description;
     try {
       const userData = await user.save();
+
+      //////////// delete any student if absent = 6 days
+      if (userData.absent.length == 6) {
+        await studentModule.deleteOne({ _id: id });
+      };
+      
       return res.json(userData);
     } catch (error) {
       return res.status(500).send(error);

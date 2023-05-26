@@ -28,8 +28,8 @@ app.use('/student', studentRoutes );
 
 
 
-const absenceRoutes = require('./routes/absence');
-app.use('/absence', absenceRoutes );
+// const absenceRoutes = require('./routes/absence');
+// app.use('/absence', absenceRoutes );
 
 
 
