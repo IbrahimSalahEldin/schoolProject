@@ -2,24 +2,70 @@ const express = require('express');
 const router = express.Router();
 
 //validation ;
-const { loginValidations} = require("../validations/userValidation");
+
 const { teacherValidation} = require("../validations/teacherValidation");
-const { authAdmin , authTeacher } = require('../middlewares/auth');
+const { authAdmin  } = require('../middlewares/auth');
 const admin = require("../controllers/users/adminController");
-// controller;
-const { login} = require("../controllers/users/userController");
+
+
 
 const upload = require("../middlewares/upload");
 
-router.post('/',[ authAdmin ,   teacherValidation , upload('user').single('img')],admin.create);
+router.post('/',[ authAdmin ,  teacherValidation , upload('user').single('img')],admin.create);
 
-router.put('/:id',[ authAdmin ,   teacherValidation , upload('user').single('img')], admin.Edit);
+router.put('/:id',[  authAdmin ,  teacherValidation , upload('user').single('img')], admin.Edit);
 
 router.delete('/:id', authAdmin , admin.delete);
 
-router.get('/get' ,authTeacher, admin.get);
+router.get('/' , admin.get);
 
-router.post('/login',loginValidations, login);
+/////////////////////////  login function
 
-module.exports =  router;
+const jwt = require('jsonwebtoken');
+const userModel = require ('../models/user');
+const TOKEN_KEY =process.env.TOKEN_KEY || "ITI"
 
+  router.post("/login", async (req, res) => {
+
+    // Our login logic starts here
+    try {
+      // Get user input
+      const { email, password } = req.body;
+  
+      // Validate user input
+      if (!(email && password)) {
+       return res.status(400).send("All input is required");
+      }
+      
+      // Validate if user exist in our database
+      const user = await userModel.findOne({ email });
+      // console.log(user);
+      // console.log(password);
+      // console.log(user.password);
+      if (user && (password== user.password)) {
+       
+        // Create token
+        const token =  jwt.sign(
+          {user},
+          TOKEN_KEY,
+          {
+            expiresIn: "2h",
+          }
+        );
+  
+        // save user token
+        user.token = token;
+        // user   
+        // const response={message:'success',token:user.token}
+       return res.status(200).json(user);
+      }
+      const errResponse = {message:'passwoer or email is invalid'}
+      return res.status(400).send(errResponse);
+    } catch (err) {
+
+          return res.status(500).send(err);
+
+    }
+  });
+
+    module.exports = router ; 

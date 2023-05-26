@@ -1,7 +1,9 @@
 //validate all errors
 const { validationResult } = require("express-validator");
 //to define teacher/admin schema
-
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const studentModule = require("../models/student");
 
 class Student {
@@ -96,17 +98,29 @@ class Student {
       if (userData.absent.length == 6) {
         await studentModule.deleteOne({ _id: id });
       };
-      
+
       return res.json(userData);
     } catch (error) {
       return res.status(500).send(error);
     }
   }
 
+  
   async delete(req, res) {
     try {
-      const business = await studentModule.deleteOne({ _id: req.params.id });
-      return res.json(business);
+      const student = await studentModule.findById({_id: req.params.id});
+      if (student) {
+        
+      
+        const imagePath = path.join(
+          __dirname,
+          "../../assets/uploads/student",
+          student.img,
+        );
+        fs.unlinkSync(imagePath);
+      }
+      const resalt = await studentModule.deleteOne({ _id: req.params.id });
+      return res.json(resalt);
     } catch (err) {
       res.status(500).send(err);
     }

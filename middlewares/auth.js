@@ -1,9 +1,9 @@
+
 const jwt = require ('jsonwebtoken');
 const { model } = require('mongoose');
 const TOKEN_KEY = "ITI"
 
 exports.authAdmin = function (req,res,next){
-   
      const token = req.headers["x-token"]; 
     // console.log(token);
      if(!token) 
@@ -19,8 +19,14 @@ exports.authAdmin = function (req,res,next){
 
             req.user = decoded;  
             return next();
+
+
          }) ;
        
+      
+
+                     
+
       }
      catch(err)
      {
@@ -41,7 +47,7 @@ exports.authTeacher = function (req,res,next){
     try{
          jwt.verify(token,TOKEN_KEY,(err,decoded)=>
         {
-         if (decoded.user.role == true) 
+         if (decoded.user.role != true) 
          return res.status(401).json({ message: "Not authorized" })
  
            req.user = decoded;  
