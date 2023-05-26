@@ -14,7 +14,7 @@ class admin {
         role: req.body.role,
         token: req.body.token,
       };
-
+      console.log("asd");
       const email = await userModule.findOne({ email: req.body.email });
       if (!email) {
         await userModule.create(objuser);
@@ -84,7 +84,8 @@ class admin {
       const userData = await user.save();
       return res.json(userData);
     } catch (error) {
-      return res.status(500).send(error);
+      console.log(error);
+     // return res.status(500).send(error);
     }
   }
 

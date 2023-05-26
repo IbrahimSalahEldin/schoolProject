@@ -20,12 +20,11 @@ const { decode } = require("jsonwebtoken");
             if (user) {
                 
                 if(await comparaPassword(password , user.password)){
-                    const token =  createToken({id:user._id, name:user.name})
+                    const token =  createToken({id:user._id, name:user.name,role:user.role, email:user.email})
                     if (user.admin) {
                         return res.status(201).json({token ,admin: true} )
                     }else{
                         return res.status(201).json({token , admin : false})
-
                     }
                 }else{
                     return res.status(401).json({errors: [{msg: 'password not matched'}]})
