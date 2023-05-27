@@ -30,7 +30,10 @@ const TOKEN_KEY =process.env.TOKEN_KEY || "ITI"
     // Our login logic starts here
     try {
       // Get user input
+     
       const { email, password } = req.body;
+      console.log(email);
+      console.log(password);
   
       // Validate user input
       if (!(email && password)) {
@@ -38,10 +41,11 @@ const TOKEN_KEY =process.env.TOKEN_KEY || "ITI"
       }
       
       // Validate if user exist in our database
-      const user = await userModel.findOne({ email });
-      // console.log(user);
-      // console.log(password);
-      // console.log(user.password);
+      const user = await userModel.findOne({ email:email });
+     
+      // console.log(user); 
+      console.log(password);
+      console.log(user.password);
       if (user && (password== user.password)) {
        
         // Create token
