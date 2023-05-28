@@ -18,11 +18,10 @@ const StudentSchema = mongoose.Schema({
         require:true,
         unique: true
     },
-    amountaOfBsence:{
-        type: Number
-    },
+    
     report:{
         type: Number,
+        default:0,
     },
     absent:[{
         type: Number,

@@ -12,7 +12,7 @@ const upload = require("../middlewares/upload");
 
 router.post('/',[ authAdmin ,    upload('student').single('img') ], student.create);
 
-router.get('/', admin.get);
+router.get('/', student.get);
 
 router.put('/:id',[authAdmin , upload('student').single('img')], student.Edit);
 

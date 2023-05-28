@@ -75,7 +75,7 @@ class Student {
     if (req.file || res.statusCode != 404) {
       const imagePath = path.join(
         __dirname,
-        "../../assets/uploads/student",
+        "../assets/uploads/student",
         user.img
       );
       fs.unlinkSync(imagePath);
@@ -110,11 +110,9 @@ class Student {
     try {
       const student = await studentModule.findById({_id: req.params.id});
       if (student) {
-        
-      
         const imagePath = path.join(
           __dirname,
-          "../../assets/uploads/student",
+          "../assets/uploads/student",
           student.img,
         );
         fs.unlinkSync(imagePath);
@@ -122,6 +120,7 @@ class Student {
       const resalt = await studentModule.deleteOne({ _id: req.params.id });
       return res.json(resalt);
     } catch (err) {
+      console.log(err);
       res.status(500).send(err);
     }
   }
