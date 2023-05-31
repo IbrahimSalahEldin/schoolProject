@@ -64,9 +64,19 @@ class Student {
       result.documents = response;
       return res.status(200).json(result);
     } catch (error) {
-      console.log(error.message);
+     
       return res.status(500).json(error);
     }
+  }
+
+  async getByID(req , res){
+    try {
+      const student = await studentModule.findOne({ _id:req.params.id });
+      return res.status(200).json(student);
+    } catch (error) {
+      return res.status(500).json(error);
+    }
+
   }
 
   async Edit(req, res) {
@@ -86,13 +96,19 @@ class Student {
     user.address = req.body.address;
     user.ssn = req.body.ssn;
     user.amountaOfBsence = req.body.amountaOfBsence;
-    user.report = req.body.report;
+    // user.report = req.body.report;
     user.absent = req.body.absent;
     user.class = req.body.class;
     user.academic_year = req.body.academic_year;
     user.father_description = req.body.father_description;
     try {
       const userData = await user.save();
+       ////////////  report
+      if (userData.absent == 3) {
+        user.report = 1;
+      }else if (userData.absent == 6){
+        user.report = 1;
+      };
 
       //////////// delete any student if absent = 6 days
       if (userData.absent.length == 6) {
@@ -100,6 +116,7 @@ class Student {
       };
 
       return res.json(userData);
+
     } catch (error) {
       return res.status(500).send(error);
     }
