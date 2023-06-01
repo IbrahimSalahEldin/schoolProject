@@ -39,30 +39,30 @@ class Student {
 
 
   async get(req, res) {
-    const page = req.params.page || 1;
-    const Num_Of_Student_Items = 10;
-    const skip = (page - 1) * Num_Of_Student_Items;
-    const index = page * Num_Of_Student_Items;
-    const result = {};
+    // const page = req.params.page || 1;
+    // const Num_Of_Student_Items = 10;
+    // const skip = (page - 1) * Num_Of_Student_Items;
+    // const index = page * Num_Of_Student_Items;
+    // const result = {};
     try {
-      const count = await studentModule.find({}).countDocuments();
+      // const count = await studentModule.find({}).countDocuments();
       const response = await studentModule
         .find({})
-        .skip(skip)
-        .limit(Num_Of_Student_Items)
-        .sort({ updatAt: -1 });
+        // .skip(skip)
+        // .limit(Num_Of_Student_Items)
+        // .sort({ updatAt: -1 });
 
-      if (index < count) {
-        result.next = { page: +page + 1, limit: Num_Of_Student_Items };
-      }
-      if (skip > 0) {
-        result.previous = { page: page - 1, limit: Num_Of_Student_Items };
-      }
-      result.totalPages = Math.ceil(count / Num_Of_Student_Items);
-      result.totalDocyments = count;
-      result.currentPage = page;
-      result.documents = response;
-      return res.status(200).json(result);
+      // if (index < count) {
+      //   result.next = { page: +page + 1, limit: Num_Of_Student_Items };
+      // }
+      // if (skip > 0) {
+      //   result.previous = { page: page - 1, limit: Num_Of_Student_Items };
+      // }
+      // result.totalPages = Math.ceil(count / Num_Of_Student_Items);
+      // result.totalDocyments = count;
+      // result.currentPage = page;
+      // result.documents = response;
+      return res.status(200).json(response);
     } catch (error) {
      
       return res.status(500).json(error);

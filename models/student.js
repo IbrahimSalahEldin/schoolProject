@@ -23,21 +23,30 @@ const StudentSchema = mongoose.Schema({
         type: Number,
         default:0,
     },
-    absent:[{
-        type: Number,
-        enum:[0,1,2,3,4,5,6],
-        date: new Date(),
-        default: 0,
-    }],
+    // absent: {
+    //     type: [{
+    //         type: Number,
+    //         enum: [0, 1, 2, 3, 4, 5, 6],
+    //         default: 0,
+    //     }],
+    //     default: function () {
+    //         return [0];
+    //     },
+    // },
+    absent: {
+            type: Number,
+            enum: [0, 1, 2, 3, 4, 5, 6],
+            default: 0,
+    },
     class:{
         type: String,
         enum: ['first', 'second', 'third'],
-        default:['fisrt'] 
+        default:'first'
     },
     academic_year :{
         type:String,
         enum: ['first', 'second', 'third'],
-        default:['first'] 
+        default:'first'
 
     },
     father_description:{
