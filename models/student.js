@@ -37,7 +37,7 @@ const StudentSchema = mongoose.Schema({
     academic_year :{
         type:String,
         enum: ['first', 'second', 'third'],
-        default:['fisrt'] 
+        default:['first'] 
 
     },
     father_description:{
