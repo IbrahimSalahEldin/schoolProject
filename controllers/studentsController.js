@@ -17,10 +17,10 @@ class Student {
         img: req.file.filename,
         address: req.body.address,
         ssn: req.body.ssn,
-        amountaOfBsence: req.body.amountaOfBsence,
-        report: req.body.report,
+        // amountaOfBsence: req.body.amountaOfBsence,
+        // report: req.body.report,
         class: req.body.class,
-        absent: req.body.absent,
+        // absent: req.body.absent,
         academic_year: req.body.academic_year,
         father_description: req.body.father_description,
       };

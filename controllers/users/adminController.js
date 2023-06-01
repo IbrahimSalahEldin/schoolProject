@@ -31,33 +31,33 @@ class admin {
   }
 
   async get(req, res) {
-    const page = req.params.page || 1;
-    const Num_Of_Teachers_Items = 10;
-    const skip = (page - 1) * Num_Of_Teachers_Items;
-    const index = page * Num_Of_Teachers_Items;
-    const result = {};
+    // const page = req.params.page || 1;
+    // const Num_Of_Teachers_Items = 10;
+    // const skip = (page - 1) * Num_Of_Teachers_Items;
+    // const index = page * Num_Of_Teachers_Items;
+    // const result = {};
     try {
       //to count users number
-      const count = await userModule.find({}).countDocuments();
+      // const count = await userModule.find({}).countDocuments();
       const response = await userModule
         .find({})
-        .skip(skip)
-        .limit(Num_Of_Teachers_Items)
-        .sort({ updatAt: -1 });
+        // .skip(skip)
+        // .limit(Num_Of_Teachers_Items)
+        // .sort({ updatAt: -1 });
 
-      if (index < count) {
-        result.next = { page: +page + 1, limit: Num_Of_Teachers_Items };
-      }
+      // if (index < count) {
+      //   result.next = { page: +page + 1, limit: Num_Of_Teachers_Items };
+      // }
 
-      if (skip > 0) {
-        result.previous = { page: page - 1, limit: Num_Of_Teachers_Items };
-      }
+      // if (skip > 0) {
+      //   result.previous = { page: page - 1, limit: Num_Of_Teachers_Items };
+      // }
 
-      result.totalPages = Math.ceil(count / Num_Of_Teachers_Items);
-      result.totalDocyments = count;
-      result.currentPage = page;
-      result.documents = response;
-      return res.status(200).json(result);
+      // result.totalPages = Math.ceil(count / Num_Of_Teachers_Items);
+      // result.totalDocyments = count;
+      // result.currentPage = page;
+      // result.documents = response;
+      return res.status(200).json(response);
     } catch (error) {
       console.log(error.message);
       return res.status(500).json(error);
@@ -67,29 +67,34 @@ class admin {
   async Edit(req, res) {
     const id = req.params.id;
     const user = await userModule.findById(id);
-    if (req.file || res.statusCode != 404) {
-      const imagePath = path.join(
-        __dirname,
-        "../../assets/uploads/user",
-        user.img
-      );
-      fs.unlinkSync(imagePath);
-      console.log(imagePath);
-      user.img = req.file.filename;
-    }
+    if (user) {
+          if (req.file || res.statusCode != 404) {
+            const imagePath = path.join(
+              __dirname,
+              "../../assets/uploads/user",
+              user.img
+            );
+            fs.unlinkSync(imagePath);
+            console.log(imagePath);
+            user.img = req.file.filename;
+          }
 
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.password = req.body.password;
-    user.role = req.body.role;
-    user.token = req.body.token;
-
+          user.name = req.body.name;
+          user.email = req.body.email;
+          user.password = req.body.password;
+          user.role = req.body.role;
+          user.token = req.body.token;
+        }
     try {
+      if(user){
       const userData = await user.save();
       return res.json(userData);
+    }else{
+      return res.status(404).send({ message:"User not found"});
+    }
     } catch (error) {
       console.log(error);
-     // return res.status(500).send(error);
+     return res.status(500).send(error);
     }
   }
 
