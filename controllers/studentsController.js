@@ -82,40 +82,47 @@ class Student {
   async Edit(req, res) {
     const id = req.params.id;
     const user = await studentModule.findById(id);
-    if (req.file || res.statusCode != 404) {
-      const imagePath = path.join(
-        __dirname,
-        "../assets/uploads/student",
-        user.img
-      );
-      fs.unlinkSync(imagePath);
-      user.img = req.file.filename;
-    }
+    if (user) {
+            if ( req.file || res.statusCode != 404) {
+              const imagePath = path.join(
+                __dirname,
+                "../assets/uploads/student",
+                user.img
+              );
+              fs.unlinkSync(imagePath);
+              user.img = req.file.filename;
+            }
 
-    user.name = req.body.name;
-    user.address = req.body.address;
-    user.ssn = req.body.ssn;
-    user.amountaOfBsence = req.body.amountaOfBsence;
-    // user.report = req.body.report;
-    user.absent = req.body.absent;
-    user.class = req.body.class;
-    user.academic_year = req.body.academic_year;
-    user.father_description = req.body.father_description;
+            user.name = req.body.name;
+            user.address = req.body.address;
+            user.ssn = req.body.ssn;
+            user.amountaOfBsence = req.body.amountaOfBsence;
+            // user.report = req.body.report;
+            user.absent = req.body.absent;
+            user.class = req.body.class;
+            user.academic_year = req.body.academic_year;
+            user.father_description = req.body.father_description;
+          }
     try {
-      const userData = await user.save();
-       ////////////  report
-      if (userData.absent == 3) {
-        user.report = 1;
-      }else if (userData.absent == 6){
-        user.report = 1;
-      };
-
-      //////////// delete any student if absent = 6 days
-      if (userData.absent.length == 6) {
-        await studentModule.deleteOne({ _id: id });
-      };
-
-      return res.json(userData);
+      if(user){
+        const userData = await user.save();
+       
+        if (userData.absent == 3) {
+          user.report = 1;
+        }else if (userData.absent == 6){
+          user.report = 1;
+        };
+  
+        //////////// delete any student if absent = 6 days
+        if (userData.absent == 6) {
+          await studentModule.deleteOne({ _id: id });
+        };
+  
+        return res.json(userData);
+      }else{
+        return res.status(404).send({ message:"User not found"});
+      }
+     
 
     } catch (error) {
       return res.status(500).send(error);
