@@ -23,16 +23,7 @@ const StudentSchema = mongoose.Schema({
         type: Number,
         default:0,
     },
-    // absent: {
-    //     type: [{
-    //         type: Number,
-    //         enum: [0, 1, 2, 3, 4, 5, 6],
-    //         default: 0,
-    //     }],
-    //     default: function () {
-    //         return [0];
-    //     },
-    // },
+   
     absent: {
             type: Number,
             enum: [0, 1, 2, 3, 4, 5, 6],
