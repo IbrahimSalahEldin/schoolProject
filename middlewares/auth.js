@@ -4,8 +4,9 @@ const { model } = require('mongoose');
 const TOKEN_KEY = "ITI"
 
 exports.authAdmin = function (req,res,next){
+
      const token = req.headers["x-token"]; 
-    // console.log(token);
+    console.log(token);
      if(!token) 
      {
         return res.status(403).send("A token is required for authentication");
