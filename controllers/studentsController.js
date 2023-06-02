@@ -17,19 +17,30 @@ class Student {
         img: req.file.filename,
         address: req.body.address,
         ssn: req.body.ssn,
-        // amountaOfBsence: req.body.amountaOfBsence,
-        // report: req.body.report,
+        amountaOfBsence: req.body.amountaOfBsence,
+        report: req.body.report,
         class: req.body.class,
-        // absent: req.body.absent,
+        absent: req.body.absent,
         academic_year: req.body.academic_year,
         father_description: req.body.father_description,
       };
+     
 
       const ssn = await studentModule.findOne({ ssn: req.body.ssn });
       if (!ssn) {
         await studentModule.create(objuser);
+        console.log('====================================');
+        console.log("angular.module");
+        
+        
+        console.log('====================================');
         return res.status(201).send("student has created successfully!");
+        
       } else {
+        console.log('====================================');
+        console.log("angular.else");
+        
+        console.log('====================================');
         return res.status(409).send("ssn already exists");
       }
     } catch (error) {

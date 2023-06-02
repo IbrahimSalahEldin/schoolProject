@@ -15,6 +15,7 @@ const storage = (folderName) =>
       cb(null, folderPath);
     },
     filename: (req, file, cb) => {
+      
       const fileExt = path.extname(file.originalname);
       const filename = Date.now() + fileExt;
       cb(null, filename);

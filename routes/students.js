@@ -10,7 +10,7 @@ const student=require("../controllers/studentsController");
 
 const upload = require("../middlewares/upload");
 
-router.post('/',[ authAdmin ,    upload('student').single('img') ], student.create);
+router.post('/',[   upload('student').single('img') ], student.create);
 
 router.get('/', student.get);
 router.get('/:id', student.getByID);
