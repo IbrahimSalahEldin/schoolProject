@@ -32,7 +32,8 @@ app.use(bodyParser.json({
 // add middleware 
 app.use(express.json());
 
-app.use("/assets", express.static("assets/uploads"));
+// app.use("/assets", express.static("assets/uploads"));
+app.use(express.static(path.join(__dirname, 'assets')));
 app.use(cors());
 
 
