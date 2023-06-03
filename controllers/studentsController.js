@@ -41,7 +41,7 @@ class Student {
         console.log("angular.else");
         
         console.log('====================================');
-        return res.status(409).send("ssn already exists");
+        return res.status(400).send("ssn already exists");
       }
     } catch (error) {
       return res.status(401).send(error);
@@ -50,29 +50,11 @@ class Student {
 
 
   async get(req, res) {
-    // const page = req.params.page || 1;
-    // const Num_Of_Student_Items = 10;
-    // const skip = (page - 1) * Num_Of_Student_Items;
-    // const index = page * Num_Of_Student_Items;
-    // const result = {};
+
     try {
-      // const count = await studentModule.find({}).countDocuments();
+     
       const response = await studentModule
         .find({})
-        // .skip(skip)
-        // .limit(Num_Of_Student_Items)
-        // .sort({ updatAt: -1 });
-
-      // if (index < count) {
-      //   result.next = { page: +page + 1, limit: Num_Of_Student_Items };
-      // }
-      // if (skip > 0) {
-      //   result.previous = { page: page - 1, limit: Num_Of_Student_Items };
-      // }
-      // result.totalPages = Math.ceil(count / Num_Of_Student_Items);
-      // result.totalDocyments = count;
-      // result.currentPage = page;
-      // result.documents = response;
       return res.status(200).json(response);
     } catch (error) {
      
@@ -108,7 +90,6 @@ class Student {
             user.address = req.body.address;
             user.ssn = req.body.ssn;
             user.amountaOfBsence = req.body.amountaOfBsence;
-            // user.report = req.body.report;
             user.absent = req.body.absent;
             user.class = req.body.class;
             user.academic_year = req.body.academic_year;
@@ -118,14 +99,12 @@ class Student {
       if(user){
         const userData = await user.save();
        
-        if (userData.absent == 3) {
+        if (userData.absent == 4) {
           user.report = 1;
-        }else if (userData.absent == 6){
-          user.report = 1;
+        }else if (userData.absent == 8){
+          user.report = 2;
         };
-  
-        //////////// delete any student if absent = 6 days
-        if (userData.absent == 6) {
+        if (userData.absent == 12) {
           await studentModule.deleteOne({ _id: id });
         };
   

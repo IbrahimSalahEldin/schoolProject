@@ -10,14 +10,14 @@ const student=require("../controllers/studentsController");
 
 const upload = require("../middlewares/upload");
 
-router.post('/',[ authAdmin,  upload('student').single('img') ], student.create);
+router.post('/',[ upload('student').single('img') ], student.create);
 
 router.get('/', student.get);
 router.get('/:id', student.getByID);
 
-router.put('/:id',[authAdmin , upload('student').single('img')], student.Edit);
+router.put('/:id',[ upload('student').single('img')], student.Edit);
 
-router.delete('/:id',authAdmin ,  student.delete);
+router.delete('/:id', student.delete);
 
 
 module.exports = router;

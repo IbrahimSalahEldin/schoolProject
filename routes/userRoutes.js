@@ -11,11 +11,11 @@ const admin = require("../controllers/users/adminController");
 
 const upload = require("../middlewares/upload");
 
-router.post('/',[ authAdmin ,  teacherValidation , upload('user').single('img')],admin.create);
+router.post('/',[  teacherValidation , upload('user').single('img')],admin.create);
 
-router.put('/:id',[  authAdmin ,  teacherValidation , upload('user').single('img')], admin.Edit);
+router.put('/:id',[    teacherValidation , upload('user').single('img')], admin.Edit);
 
-router.delete('/:id', authAdmin , admin.delete);
+router.delete('/:id',  admin.delete);
 
 router.get('/' , admin.get);
 
