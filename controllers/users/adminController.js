@@ -8,6 +8,7 @@ const userModule = require("../../models/user");
 
 class admin {
   async create(req, res) {
+    const errResEmail={message:'User Already Exist'}
     try {
       const objuser = {
         name: req.body.name,
@@ -23,7 +24,7 @@ class admin {
         await userModule.create(objuser);
         return res.status(201).send("User has created successfully!");
       } else {
-        return res.status(409).send("email already exists");
+        return res.status(409).send(errResEmail);
       }
     } catch (error) {
       return res.status(401).send(error);
@@ -31,32 +32,12 @@ class admin {
   }
 
   async get(req, res) {
-    // const page = req.params.page || 1;
-    // const Num_Of_Teachers_Items = 10;
-    // const skip = (page - 1) * Num_Of_Teachers_Items;
-    // const index = page * Num_Of_Teachers_Items;
-    // const result = {};
+
     try {
-      //to count users number
-      // const count = await userModule.find({}).countDocuments();
+
       const response = await userModule
         .find({})
-        // .skip(skip)
-        // .limit(Num_Of_Teachers_Items)
-        // .sort({ updatAt: -1 });
-
-      // if (index < count) {
-      //   result.next = { page: +page + 1, limit: Num_Of_Teachers_Items };
-      // }
-
-      // if (skip > 0) {
-      //   result.previous = { page: page - 1, limit: Num_Of_Teachers_Items };
-      // }
-
-      // result.totalPages = Math.ceil(count / Num_Of_Teachers_Items);
-      // result.totalDocyments = count;
-      // result.currentPage = page;
-      // result.documents = response;
+   
       return res.status(200).json(response);
     } catch (error) {
       console.log(error.message);
@@ -107,7 +88,7 @@ class admin {
         user.img,
         
       );
-      fs.unlinkSync(imagePath);
+      // fs.unlinkSync(imagePath);
       
       const resalt = await userModule.deleteOne({ _id: req.params.id });
       return res.json(resalt);

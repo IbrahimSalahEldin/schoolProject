@@ -129,7 +129,7 @@ class Student {
           "../assets/uploads/student",
           student.img,
         );
-        fs.unlinkSync(imagePath);
+        // fs.unlinkSync(imagePath);
       }
       const resalt = await studentModule.deleteOne({ _id: req.params.id });
       return res.json(resalt);
